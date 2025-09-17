@@ -1,18 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useWindowSize } from '../hooks/useWindowSize';
 
-// Lazy load Spline with error handling
-const Spline = React.lazy(() => 
-  import('@splinetool/react-spline').catch(() => {
-    // If Spline fails to load, return a dummy component
-    return { default: () => null };
-  })
-);
+// Safe Spline component that won't break on GitHub Pages
+const SafeSpline = ({ scene, style }) => {
+  try {
+    // Only load Spline in development or localhost
+    const isLocalhost = typeof window !== 'undefined' && 
+      (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+    
+    if (!isLocalhost) {
+      // On production (GitHub Pages), show a placeholder
+      return (
+        <div style={{
+          ...style,
+          background: 'radial-gradient(circle, rgba(0,255,209,0.1) 0%, rgba(0,255,209,0.05) 50%, transparent 100%)',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <div style={{
+            width: '200px',
+            height: '200px',
+            border: '2px solid rgba(0,255,209,0.3)',
+            borderRadius: '50%',
+            animation: 'pulse 3s ease-in-out infinite'
+          }} />
+        </div>
+      );
+    }
+    
+    // In development, load the actual Spline component
+    const Spline = require('@splinetool/react-spline').default;
+    return <Spline scene={scene} />;
+  } catch (error) {
+    // Fallback if Spline fails to load
+    return (
+      <div style={{
+        ...style,
+        background: 'radial-gradient(circle, rgba(0,255,209,0.1) 0%, rgba(0,255,209,0.05) 50%, transparent 100%)',
+        borderRadius: '50%'
+      }} />
+    );
+  }
+};
 
 const HeroSection = ({ scrollY }) => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
-  const [splineError, setSplineError] = useState(false);
 
   return (
     <section 
@@ -129,10 +164,11 @@ const HeroSection = ({ scrollY }) => {
           order: isMobile ? 1 : 2,
           height: isMobile ? '300px' : '600px'
         }}>
-          {/* 3D Spline Background - With error handling for GitHub Pages */}
-          {!isMobile && !splineError && (
-            <React.Suspense fallback={null}>
-              <div style={{ 
+          {/* 3D Background - Safe for GitHub Pages */}
+          {!isMobile && (
+            <SafeSpline
+              scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode"
+              style={{ 
                 position: 'absolute',
                 width: '700px', 
                 height: '700px', 
@@ -140,13 +176,8 @@ const HeroSection = ({ scrollY }) => {
                 transform: `translateY(${scrollY * -0.05}px)`,
                 opacity: 0.6,
                 zIndex: 1
-              }}>
-                <Spline 
-                  scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode"
-                  onError={() => setSplineError(true)}
-                />
-              </div>
-            </React.Suspense>
+              }}
+            />
           )}
           
           {/* Professional Photo */}
