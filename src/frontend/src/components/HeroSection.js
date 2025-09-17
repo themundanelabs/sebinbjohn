@@ -129,19 +129,24 @@ const HeroSection = ({ scrollY }) => {
           order: isMobile ? 1 : 2,
           height: isMobile ? '300px' : '600px'
         }}>
-          {/* 3D Spline Background - Temporarily disabled for testing */}
-          {false && !isMobile && (
-            <div style={{ 
-              position: 'absolute',
-              width: '700px', 
-              height: '700px', 
-              overflow: 'visible',
-              transform: `translateY(${scrollY * -0.05}px)`,
-              opacity: 0.6,
-              zIndex: 1
-            }}>
-              <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
-            </div>
+          {/* 3D Spline Background - With error handling for GitHub Pages */}
+          {!isMobile && !splineError && (
+            <React.Suspense fallback={null}>
+              <div style={{ 
+                position: 'absolute',
+                width: '700px', 
+                height: '700px', 
+                overflow: 'visible',
+                transform: `translateY(${scrollY * -0.05}px)`,
+                opacity: 0.6,
+                zIndex: 1
+              }}>
+                <Spline 
+                  scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode"
+                  onError={() => setSplineError(true)}
+                />
+              </div>
+            </React.Suspense>
           )}
           
           {/* Professional Photo */}
