@@ -51,7 +51,14 @@ const Header = () => {
         PORTFOLIO
       </div>
 
-      <nav style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+      <nav style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: '32px',
+        '@media (max-width: 768px)': {
+          display: 'none'
+        }
+      }}>
         {['about', 'skills', 'experience', 'contact'].map((item) => (
           <button
             key={item}
