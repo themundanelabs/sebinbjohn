@@ -100,3 +100,7 @@ src/frontend/node_modules/.cache/default-development/3.pack
 
 # Emergent specific
 .emergent/
+-e 
+# Environment files
+*.env
+*.env.*
