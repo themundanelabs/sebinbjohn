@@ -42,8 +42,8 @@ const ExperienceSection = ({ data }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '300px 1fr',
-          gap: '60px',
+          gridTemplateColumns: window.innerWidth > 768 ? '300px 1fr' : '1fr',
+          gap: window.innerWidth > 768 ? '60px' : '40px',
           alignItems: 'start'
         }}>
           {/* Timeline Navigation */}
