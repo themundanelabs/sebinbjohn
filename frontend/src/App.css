@@ -218,4 +218,14 @@ body::-webkit-scrollbar {
   .display-medium { font-size: 24px; }
   .heading-1 { font-size: 20px; }
   .heading-2 { font-size: 18px; }
+  
+  /* Mobile responsive overrides */
+  body {
+    padding: 0 20px;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    margin-bottom: 15px;
+  }
 }
