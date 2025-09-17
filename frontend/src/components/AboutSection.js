@@ -14,8 +14,8 @@ const AboutSection = ({ data }) => {
         maxWidth: '1400px', 
         margin: '0 auto',
         display: 'grid',
-        gridTemplateColumns: '1fr 2fr',
-        gap: '80px',
+        gridTemplateColumns: window.innerWidth > 768 ? '1fr 2fr' : '1fr',
+        gap: window.innerWidth > 768 ? '80px' : '40px',
         alignItems: 'start'
       }}>
         {/* Left - Title */}
