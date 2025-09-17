@@ -40,7 +40,7 @@ const SkillsSection = ({ data }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+          gridTemplateColumns: window.innerWidth > 768 ? 'repeat(auto-fit, minmax(350px, 1fr))' : '1fr',
           gap: '40px'
         }}>
           {data.categories.map((category, categoryIndex) => (
