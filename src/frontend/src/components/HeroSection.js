@@ -1,6 +1,13 @@
-import React from 'react';
-import Spline from '@splinetool/react-spline';
+import React, { useState, useEffect } from 'react';
 import { useWindowSize } from '../hooks/useWindowSize';
+
+// Lazy load Spline with error handling
+const Spline = React.lazy(() => 
+  import('@splinetool/react-spline').catch(() => {
+    // If Spline fails to load, return a dummy component
+    return { default: () => null };
+  })
+);
 
 const HeroSection = ({ scrollY }) => {
   const { width } = useWindowSize();
