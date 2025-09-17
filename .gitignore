@@ -97,3 +97,6 @@ frontend/node_modules/.cache/default-development/1.pack
 *.env.*
 src/frontend/node_modules/.cache/default-development/4.pack
 src/frontend/node_modules/.cache/default-development/3.pack
+
+# Emergent specific
+.emergent/
