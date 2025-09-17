@@ -1,0 +1,22 @@
+{
+  "name": "tech-entrepreneur-portfolio",
+  "version": "1.0.0",
+  "description": "A futuristic 3D portfolio website for a tech entrepreneur",
+  "homepage": ".",
+  "private": false,
+  "author": "Tech Entrepreneur",
+  "license": "MIT",
+  "keywords": [
+    "portfolio",
+    "react",
+    "3d",
+    "spline",
+    "entrepreneur",
+    "technology",
+    "strategy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/portfolio-website"
+  }
+}
