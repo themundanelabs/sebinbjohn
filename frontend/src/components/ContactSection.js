@@ -60,8 +60,8 @@ const ContactSection = ({ data }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '80px',
+          gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
+          gap: window.innerWidth > 768 ? '80px' : '40px',
           alignItems: 'start'
         }}>
           {/* Contact Info */}
