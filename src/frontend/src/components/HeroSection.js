@@ -12,6 +12,7 @@ const Spline = React.lazy(() =>
 const HeroSection = ({ scrollY }) => {
   const { width } = useWindowSize();
   const isMobile = width < 768;
+  const [splineError, setSplineError] = useState(false);
 
   return (
     <section 
