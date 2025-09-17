@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const ExperienceSection = ({ data }) => {
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
     <section 
       id="experience"
       style={{
-        padding: '160px 7.6923%',
+        padding: isMobile ? '80px 20px' : '160px 7.6923%',
         background: 'var(--bg-primary)',
         position: 'relative'
       }}
@@ -16,7 +19,7 @@ const ExperienceSection = ({ data }) => {
         maxWidth: '1400px', 
         margin: '0 auto'
       }}>
-        <div className="fade-in" style={{ textAlign: 'center', marginBottom: '100px' }}>
+        <div className="fade-in" style={{ textAlign: 'center', marginBottom: isMobile ? '60px' : '100px' }}>
           <h2 className="display-medium" style={{ 
             marginBottom: '30px',
             color: 'var(--brand-primary)'
@@ -42,8 +45,8 @@ const ExperienceSection = ({ data }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: window.innerWidth > 768 ? '300px 1fr' : '1fr',
-          gap: window.innerWidth > 768 ? '60px' : '40px',
+          gridTemplateColumns: isMobile ? '1fr' : '300px 1fr',
+          gap: isMobile ? '40px' : '60px',
           alignItems: 'start'
         }}>
           {/* Timeline Navigation */}
@@ -53,13 +56,14 @@ const ExperienceSection = ({ data }) => {
                 key={index}
                 onClick={() => setActiveIndex(index)}
                 style={{
-                  padding: '20px',
+                  padding: isMobile ? '15px' : '20px',
                   marginBottom: '10px',
                   cursor: 'pointer',
                   background: activeIndex === index ? 'rgba(0, 255, 209, 0.1)' : 'transparent',
                   border: activeIndex === index ? '1px solid var(--brand-primary)' : '1px solid transparent',
                   transition: 'all 0.3s ease',
-                  borderLeft: activeIndex === index ? '4px solid var(--brand-primary)' : '4px solid transparent'
+                  borderLeft: activeIndex === index ? '4px solid var(--brand-primary)' : '4px solid transparent',
+                  textAlign: isMobile ? 'center' : 'left'
                 }}
                 onMouseEnter={(e) => {
                   if (activeIndex !== index) {
@@ -95,13 +99,14 @@ const ExperienceSection = ({ data }) => {
               <div style={{
                 background: 'rgba(255, 255, 255, 0.02)',
                 border: '1px solid var(--border-subtle)',
-                padding: '50px',
-                minHeight: '400px'
+                padding: isMobile ? '30px 20px' : '50px',
+                minHeight: isMobile ? 'auto' : '400px'
               }}>
                 <div style={{ marginBottom: '30px' }}>
                   <h3 className="heading-1" style={{ 
                     color: 'var(--text-primary)',
-                    marginBottom: '10px'
+                    marginBottom: '10px',
+                    textAlign: isMobile ? 'center' : 'left'
                   }}>
                     {data.roles[activeIndex].title}
                   </h3>
@@ -109,7 +114,9 @@ const ExperienceSection = ({ data }) => {
                     display: 'flex',
                     alignItems: 'center',
                     gap: '20px',
-                    marginBottom: '20px'
+                    marginBottom: '20px',
+                    flexDirection: isMobile ? 'column' : 'row',
+                    textAlign: isMobile ? 'center' : 'left'
                   }}>
                     <span className="body-medium" style={{ color: 'var(--brand-primary)' }}>
                       {data.roles[activeIndex].company}
@@ -123,7 +130,8 @@ const ExperienceSection = ({ data }) => {
                 <div className="body-medium" style={{ 
                   color: 'var(--text-secondary)',
                   marginBottom: '30px',
-                  lineHeight: '1.6'
+                  lineHeight: '1.6',
+                  textAlign: isMobile ? 'center' : 'left'
                 }}>
                   {data.roles[activeIndex].description}
                 </div>
@@ -131,7 +139,8 @@ const ExperienceSection = ({ data }) => {
                 <div>
                   <h4 className="heading-3" style={{ 
                     color: 'var(--text-primary)',
-                    marginBottom: '20px'
+                    marginBottom: '20px',
+                    textAlign: isMobile ? 'center' : 'left'
                   }}>
                     Key Achievements
                   </h4>
@@ -142,7 +151,9 @@ const ExperienceSection = ({ data }) => {
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
-                          gap: '15px'
+                          gap: '15px',
+                          textAlign: isMobile ? 'center' : 'left',
+                          flexDirection: isMobile ? 'column' : 'row'
                         }}
                       >
                         <div style={{
@@ -151,7 +162,8 @@ const ExperienceSection = ({ data }) => {
                           background: 'var(--brand-primary)',
                           borderRadius: '50%',
                           marginTop: '8px',
-                          flexShrink: 0
+                          flexShrink: 0,
+                          alignSelf: isMobile ? 'center' : 'flex-start'
                         }} />
                         <span className="body-medium" style={{ 
                           color: 'var(--text-secondary)',

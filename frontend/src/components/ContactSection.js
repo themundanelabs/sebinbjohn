@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const ContactSection = ({ data }) => {
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,7 +28,7 @@ const ContactSection = ({ data }) => {
     <section 
       id="contact"
       style={{
-        padding: '160px 7.6923%',
+        padding: isMobile ? '80px 20px' : '160px 7.6923%',
         background: 'var(--bg-secondary)',
         position: 'relative'
       }}
@@ -34,7 +37,7 @@ const ContactSection = ({ data }) => {
         maxWidth: '1400px', 
         margin: '0 auto'
       }}>
-        <div className="fade-in" style={{ textAlign: 'center', marginBottom: '100px' }}>
+        <div className="fade-in" style={{ textAlign: 'center', marginBottom: isMobile ? '60px' : '100px' }}>
           <h2 className="display-medium" style={{ 
             marginBottom: '30px',
             color: 'var(--brand-primary)'
@@ -60,20 +63,26 @@ const ContactSection = ({ data }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
-          gap: window.innerWidth > 768 ? '80px' : '40px',
+          gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
+          gap: isMobile ? '40px' : '80px',
           alignItems: 'start'
         }}>
           {/* Contact Info */}
-          <div className="fade-in">
+          <div className="fade-in" style={{ order: isMobile ? 2 : 1 }}>
             <h3 className="heading-2" style={{ 
               color: 'var(--text-primary)',
-              marginBottom: '40px'
+              marginBottom: '40px',
+              textAlign: isMobile ? 'center' : 'left'
             }}>
               GET IN TOUCH
             </h3>
 
-            <div style={{ display: 'grid', gap: '30px', marginBottom: '50px' }}>
+            <div style={{ 
+              display: 'grid', 
+              gap: '30px', 
+              marginBottom: '50px',
+              textAlign: isMobile ? 'center' : 'left'
+            }}>
               <div>
                 <div className="body-small" style={{ 
                   color: 'var(--text-muted)',
@@ -116,9 +125,10 @@ const ContactSection = ({ data }) => {
             </div>
 
             <div style={{
-              padding: '30px',
+              padding: isMobile ? '20px' : '30px',
               background: 'rgba(0, 255, 209, 0.05)',
-              border: '1px solid rgba(0, 255, 209, 0.2)'
+              border: '1px solid rgba(0, 255, 209, 0.2)',
+              textAlign: isMobile ? 'center' : 'left'
             }}>
               <div className="heading-3" style={{ 
                 color: 'var(--brand-primary)',
@@ -137,7 +147,7 @@ const ContactSection = ({ data }) => {
           </div>
 
           {/* Contact Form */}
-          <div className="fade-in">
+          <div className="fade-in" style={{ order: isMobile ? 1 : 2 }}>
             <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '30px' }}>
               <div>
                 <label 
@@ -147,7 +157,8 @@ const ContactSection = ({ data }) => {
                     display: 'block',
                     marginBottom: '10px',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '1px',
+                    textAlign: isMobile ? 'center' : 'left'
                   }}
                 >
                   NAME
@@ -168,7 +179,8 @@ const ContactSection = ({ data }) => {
                     fontSize: '16px',
                     fontFamily: 'inherit',
                     transition: 'all 0.3s ease',
-                    outline: 'none'
+                    outline: 'none',
+                    boxSizing: 'border-box'
                   }}
                   onFocus={(e) => e.target.style.borderColor = 'var(--brand-primary)'}
                   onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
@@ -183,7 +195,8 @@ const ContactSection = ({ data }) => {
                     display: 'block',
                     marginBottom: '10px',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '1px',
+                    textAlign: isMobile ? 'center' : 'left'
                   }}
                 >
                   EMAIL
@@ -204,7 +217,8 @@ const ContactSection = ({ data }) => {
                     fontSize: '16px',
                     fontFamily: 'inherit',
                     transition: 'all 0.3s ease',
-                    outline: 'none'
+                    outline: 'none',
+                    boxSizing: 'border-box'
                   }}
                   onFocus={(e) => e.target.style.borderColor = 'var(--brand-primary)'}
                   onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
@@ -219,7 +233,8 @@ const ContactSection = ({ data }) => {
                     display: 'block',
                     marginBottom: '10px',
                     textTransform: 'uppercase',
-                    letterSpacing: '1px'
+                    letterSpacing: '1px',
+                    textAlign: isMobile ? 'center' : 'left'
                   }}
                 >
                   MESSAGE
@@ -241,14 +256,22 @@ const ContactSection = ({ data }) => {
                     fontFamily: 'inherit',
                     resize: 'vertical',
                     transition: 'all 0.3s ease',
-                    outline: 'none'
+                    outline: 'none',
+                    boxSizing: 'border-box'
                   }}
                   onFocus={(e) => e.target.style.borderColor = 'var(--brand-primary)'}
                   onBlur={(e) => e.target.style.borderColor = 'var(--border-subtle)'}
                 />
               </div>
 
-              <button type="submit" className="btn-primary" style={{ justifySelf: 'start' }}>
+              <button 
+                type="submit" 
+                className="btn-primary" 
+                style={{ 
+                  justifySelf: isMobile ? 'center' : 'start',
+                  width: isMobile ? '100%' : 'auto'
+                }}
+              >
                 SEND MESSAGE
               </button>
             </form>

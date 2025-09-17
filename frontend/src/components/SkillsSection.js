@@ -1,11 +1,15 @@
 import React from 'react';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const SkillsSection = ({ data }) => {
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
+
   return (
     <section 
       id="skills"
       style={{
-        padding: '160px 7.6923%',
+        padding: isMobile ? '80px 20px' : '160px 7.6923%',
         background: 'var(--bg-secondary)',
         position: 'relative'
       }}
@@ -14,7 +18,7 @@ const SkillsSection = ({ data }) => {
         maxWidth: '1400px', 
         margin: '0 auto'
       }}>
-        <div className="fade-in" style={{ textAlign: 'center', marginBottom: '100px' }}>
+        <div className="fade-in" style={{ textAlign: 'center', marginBottom: isMobile ? '60px' : '100px' }}>
           <h2 className="display-medium" style={{ 
             marginBottom: '30px',
             color: 'var(--brand-primary)'
@@ -40,7 +44,7 @@ const SkillsSection = ({ data }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: window.innerWidth > 768 ? 'repeat(auto-fit, minmax(350px, 1fr))' : '1fr',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fit, minmax(350px, 1fr))',
           gap: '40px'
         }}>
           {data.categories.map((category, categoryIndex) => (
@@ -50,7 +54,7 @@ const SkillsSection = ({ data }) => {
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',
                 border: '1px solid var(--border-subtle)',
-                padding: '40px',
+                padding: isMobile ? '30px 20px' : '40px',
                 transition: 'all 0.4s ease'
               }}
             >
@@ -79,7 +83,10 @@ const SkillsSection = ({ data }) => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       padding: '12px 0',
-                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+                      borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+                      flexDirection: isMobile ? 'column' : 'row',
+                      textAlign: isMobile ? 'center' : 'left',
+                      gap: isMobile ? '5px' : '0'
                     }}
                   >
                     <span className="body-medium" style={{ color: 'var(--text-secondary)' }}>

@@ -1,7 +1,11 @@
 import React from 'react';
 import Spline from '@splinetool/react-spline';
+import { useWindowSize } from '../hooks/useWindowSize';
 
 const HeroSection = ({ scrollY }) => {
+  const { width } = useWindowSize();
+  const isMobile = width < 768;
+
   return (
     <section 
       id="hero"
@@ -9,7 +13,7 @@ const HeroSection = ({ scrollY }) => {
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
-        padding: '80px 7.6923% 0',
+        padding: isMobile ? '80px 20px 0' : '80px 7.6923% 0',
         background: 'var(--bg-primary)',
         position: 'relative',
         overflow: 'hidden'
@@ -35,20 +39,20 @@ const HeroSection = ({ scrollY }) => {
 
       <div style={{ 
         display: 'grid', 
-        gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
+        gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr',
         alignItems: 'center', 
         width: '100%',
         maxWidth: '1400px',
         margin: '0 auto',
-        gap: window.innerWidth > 768 ? '60px' : '40px',
+        gap: isMobile ? '40px' : '60px',
         position: 'relative',
         zIndex: 2
       }}>
         {/* Content */}
         <div style={{ 
           zIndex: 3,
-          order: window.innerWidth > 768 ? 1 : 2,
-          textAlign: window.innerWidth > 768 ? 'left' : 'center'
+          order: isMobile ? 2 : 1,
+          textAlign: isMobile ? 'center' : 'left'
         }}>
           <div 
             className="fade-in"
@@ -64,20 +68,20 @@ const HeroSection = ({ scrollY }) => {
             
             <div className="body-large" style={{ 
               marginBottom: '40px',
-              maxWidth: window.innerWidth > 768 ? '500px' : '100%',
+              maxWidth: isMobile ? '100%' : '500px',
               lineHeight: '1.6',
               color: 'var(--text-secondary)',
-              margin: window.innerWidth > 768 ? '0 0 40px 0' : '0 auto 40px auto'
+              margin: isMobile ? '0 auto 40px auto' : '0 0 40px 0'
             }}>
               Ops Strategist • Startup Builder • Growth-Obsessed Consultant
             </div>
 
             <div className="body-medium" style={{ 
               marginBottom: '50px',
-              maxWidth: window.innerWidth > 768 ? '480px' : '100%',
+              maxWidth: isMobile ? '100%' : '480px',
               color: 'var(--text-muted)',
               lineHeight: '1.7',
-              margin: window.innerWidth > 768 ? '0 0 50px 0' : '0 auto 50px auto'
+              margin: isMobile ? '0 auto 50px auto' : '0 0 50px 0'
             }}>
               Building tech and companies that make sense — and make a difference. 
               From chaos to clarity, vision to execution.
@@ -87,17 +91,20 @@ const HeroSection = ({ scrollY }) => {
               display: 'flex', 
               gap: '20px', 
               flexWrap: 'wrap',
-              justifyContent: window.innerWidth > 768 ? 'flex-start' : 'center'
+              justifyContent: isMobile ? 'center' : 'flex-start',
+              flexDirection: isMobile ? 'column' : 'row'
             }}>
               <button 
                 className="btn-primary"
                 onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+                style={{ width: isMobile ? '100%' : 'auto' }}
               >
                 EXPLORE WORK
               </button>
               <button 
                 className="btn-secondary"
                 onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                style={{ width: isMobile ? '100%' : 'auto' }}
               >
                 GET IN TOUCH
               </button>
@@ -111,11 +118,11 @@ const HeroSection = ({ scrollY }) => {
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
-          order: window.innerWidth > 768 ? 2 : 1,
-          height: window.innerWidth > 768 ? '600px' : '400px'
+          order: isMobile ? 1 : 2,
+          height: isMobile ? '300px' : '600px'
         }}>
           {/* 3D Spline Background - Hidden on mobile for performance */}
-          {window.innerWidth > 768 && (
+          {!isMobile && (
             <div style={{ 
               position: 'absolute',
               width: '700px', 
@@ -133,8 +140,8 @@ const HeroSection = ({ scrollY }) => {
           <div style={{
             position: 'relative',
             zIndex: 2,
-            width: window.innerWidth > 768 ? '320px' : '250px',
-            height: window.innerWidth > 768 ? '320px' : '250px',
+            width: isMobile ? '200px' : '320px',
+            height: isMobile ? '200px' : '320px',
             borderRadius: '50%',
             overflow: 'hidden',
             border: '4px solid var(--brand-primary)',
@@ -156,8 +163,8 @@ const HeroSection = ({ scrollY }) => {
           {/* Glowing ring effect */}
           <div style={{
             position: 'absolute',
-            width: window.innerWidth > 768 ? '340px' : '270px',
-            height: window.innerWidth > 768 ? '340px' : '270px',
+            width: isMobile ? '220px' : '340px',
+            height: isMobile ? '220px' : '340px',
             borderRadius: '50%',
             border: '2px solid rgba(0, 255, 209, 0.2)',
             zIndex: 1,
