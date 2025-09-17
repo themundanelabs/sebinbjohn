@@ -104,3 +104,4 @@ src/frontend/node_modules/.cache/default-development/3.pack
 # Environment files
 *.env
 *.env.*
+src/frontend/node_modules/.cache/default-development/0.pack
