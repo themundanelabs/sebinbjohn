@@ -34,17 +34,22 @@ const HeroSection = ({ scrollY }) => {
       />
 
       <div style={{ 
-        display: 'flex', 
+        display: 'grid', 
+        gridTemplateColumns: window.innerWidth > 768 ? '1fr 1fr' : '1fr',
         alignItems: 'center', 
         width: '100%',
         maxWidth: '1400px',
         margin: '0 auto',
-        gap: '60px',
+        gap: window.innerWidth > 768 ? '60px' : '40px',
         position: 'relative',
         zIndex: 2
       }}>
-        {/* Left side - Content */}
-        <div style={{ flex: 1, zIndex: 3 }}>
+        {/* Content */}
+        <div style={{ 
+          zIndex: 3,
+          order: window.innerWidth > 768 ? 1 : 2,
+          textAlign: window.innerWidth > 768 ? 'left' : 'center'
+        }}>
           <div 
             className="fade-in"
             style={{
@@ -59,24 +64,31 @@ const HeroSection = ({ scrollY }) => {
             
             <div className="body-large" style={{ 
               marginBottom: '40px',
-              maxWidth: '500px',
+              maxWidth: window.innerWidth > 768 ? '500px' : '100%',
               lineHeight: '1.6',
-              color: 'var(--text-secondary)'
+              color: 'var(--text-secondary)',
+              margin: window.innerWidth > 768 ? '0 0 40px 0' : '0 auto 40px auto'
             }}>
               Ops Strategist • Startup Builder • Growth-Obsessed Consultant
             </div>
 
             <div className="body-medium" style={{ 
               marginBottom: '50px',
-              maxWidth: '480px',
+              maxWidth: window.innerWidth > 768 ? '480px' : '100%',
               color: 'var(--text-muted)',
-              lineHeight: '1.7'
+              lineHeight: '1.7',
+              margin: window.innerWidth > 768 ? '0 0 50px 0' : '0 auto 50px auto'
             }}>
               Building tech and companies that make sense — and make a difference. 
               From chaos to clarity, vision to execution.
             </div>
 
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            <div style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              flexWrap: 'wrap',
+              justifyContent: window.innerWidth > 768 ? 'flex-start' : 'center'
+            }}>
               <button 
                 className="btn-primary"
                 onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
@@ -93,23 +105,64 @@ const HeroSection = ({ scrollY }) => {
           </div>
         </div>
 
-        {/* Right side - 3D Spline */}
+        {/* Profile Image + 3D Background */}
         <div style={{ 
-          flex: 1, 
           display: 'flex', 
           justifyContent: 'center',
           alignItems: 'center',
-          position: 'relative'
+          position: 'relative',
+          order: window.innerWidth > 768 ? 2 : 1,
+          height: window.innerWidth > 768 ? '600px' : '400px'
         }}>
-          <div style={{ 
-            width: '700px', 
-            height: '700px', 
-            overflow: 'visible', 
+          {/* 3D Spline Background - Hidden on mobile for performance */}
+          {window.innerWidth > 768 && (
+            <div style={{ 
+              position: 'absolute',
+              width: '700px', 
+              height: '700px', 
+              overflow: 'visible',
+              transform: `translateY(${scrollY * -0.05}px)`,
+              opacity: 0.6,
+              zIndex: 1
+            }}>
+              <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
+            </div>
+          )}
+          
+          {/* Professional Photo */}
+          <div style={{
             position: 'relative',
-            transform: `translateY(${scrollY * -0.05}px)`
+            zIndex: 2,
+            width: window.innerWidth > 768 ? '320px' : '250px',
+            height: window.innerWidth > 768 ? '320px' : '250px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '4px solid var(--brand-primary)',
+            boxShadow: '0 0 40px rgba(0, 255, 209, 0.3)',
+            transform: `translateY(${scrollY * -0.02}px)`
           }}>
-            <Spline scene="https://prod.spline.design/NbVmy6DPLhY-5Lvg/scene.splinecode" />
+            <img 
+              src="https://customer-assets.emergentagent.com/job_mindful-builder/artifacts/r7m4byyl_selfImage.jpg"
+              alt="Professional Portrait"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                objectPosition: 'center top'
+              }}
+            />
           </div>
+          
+          {/* Glowing ring effect */}
+          <div style={{
+            position: 'absolute',
+            width: window.innerWidth > 768 ? '340px' : '270px',
+            height: window.innerWidth > 768 ? '340px' : '270px',
+            borderRadius: '50%',
+            border: '2px solid rgba(0, 255, 209, 0.2)',
+            zIndex: 1,
+            animation: 'pulse 3s ease-in-out infinite'
+          }} />
         </div>
       </div>
 
